@@ -2,7 +2,7 @@
 Blocking Detection for ASP.NET Core
 
 [![NuGet version (Ben.Demystifier)](https://img.shields.io/nuget/v/Ben.BlockingDetector.svg?style=flat-square)](https://www.nuget.org/packages/Ben.BlockingDetector/)
-[![Build status](https://ci.appveyor.com/api/projects/status/rlhygchfph287fq0?svg=true)](https://ci.appveyor.com/project/benaadams/ben-blockingdetector)
+[![Build status](https://ci.appveyor.com/api/projects/status/7xssvgr4coj898cq?svg=true)](https://ci.appveyor.com/project/benaadams/ben-blockingdetector)
 
 ## Detect Blocking Calls in ASP.NET Core Applications
 
