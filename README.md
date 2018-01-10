@@ -18,7 +18,7 @@ app.UseBlockingDetection();
 
 ### Caveats
 
-Doesn't detect everything... so its not a panacea; you should actively trying to avoid using blocking calls.
+Doesn't detect everything... so its not a panacea; you should actively try to avoid using blocking calls.
 
 1. Won't alert for blocking calls that don't block, like on precompleted `Task`s (e.g. a single small `Body.Write`)
 2. Won't alert for blocking that happens in syscalls (e.g. `File.Read(...)`, `Thread.Sleep`)
