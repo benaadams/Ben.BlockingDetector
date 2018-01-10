@@ -22,7 +22,7 @@ Doesn't detect everything... so its not a panacea; you should actively try to av
 
 1. Won't alert for blocking calls that don't block, like on precompleted `Task`s (e.g. a single small `Body.Write`)
 2. Won't alert for blocking that happens in syscalls (e.g. `File.Read(...)`, `Thread.Sleep`)
-3. Won't alert for blocking calls that occure below waiting an incomplete task with `.ConfigureAwait(false)` for that async method
+3. Won't alert for blocking calls that occur inside an `await`ed method using `.ConfigureAwait(false)`
 
 Will detect CLR initiated waits `lock`,`ManualResetEventSlim`,`Semaphore{Slim}`,`Task.Wait`,`Task.Result` etc; if they do block.
 
