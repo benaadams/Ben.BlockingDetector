@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27130.2020
+VisualStudioVersion = 15.0.27130.2010
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ben.BlockingDetector", "src\Ben.BlockingDetector\Ben.BlockingDetector.csproj", "{B8F88BE6-6B60-4C38-AB2C-4B26716F9037}"
 EndProject
@@ -13,6 +13,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionFiles", "SolutionFi
 		README.md = README.md
 	EndProjectSection
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ben.BlockingDetector.Sample", "src\Ben.BlockingDetector.Sample\Ben.BlockingDetector.Sample.csproj", "{0AD40839-7F8C-4AA2-AA8C-DB15B80F3800}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,12 +25,17 @@ Global
 		{B8F88BE6-6B60-4C38-AB2C-4B26716F9037}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B8F88BE6-6B60-4C38-AB2C-4B26716F9037}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B8F88BE6-6B60-4C38-AB2C-4B26716F9037}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0AD40839-7F8C-4AA2-AA8C-DB15B80F3800}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0AD40839-7F8C-4AA2-AA8C-DB15B80F3800}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0AD40839-7F8C-4AA2-AA8C-DB15B80F3800}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0AD40839-7F8C-4AA2-AA8C-DB15B80F3800}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{B8F88BE6-6B60-4C38-AB2C-4B26716F9037} = {C3249EB0-5496-4C83-A6DD-96D3DD5D22D4}
+		{0AD40839-7F8C-4AA2-AA8C-DB15B80F3800} = {C3249EB0-5496-4C83-A6DD-96D3DD5D22D4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9A347552-4B58-4EB3-A66D-6CD470052398}
