@@ -2,6 +2,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
+#pragma warning disable IDE0007 
 namespace mvc
 {
     public class HomeController : Controller
@@ -11,6 +12,7 @@ namespace mvc
         [HttpGet("/")]
         public Task Slower()
         {
+            // Detected blocking in called method
             return DoSomethingAsync();
         }
 
@@ -43,18 +45,10 @@ namespace mvc
         [HttpGet("/hello-async-over-sync")]
         public async Task<string> HelloAsyncOverSync()
         {
+            // Detected blocking in called method
             var result = await Task.Run(() => BlockingTask());
 
             return $"Hello World {result}";
-        }
-
-        [HttpGet("/hello-async")]
-        public async Task<string> HelloAsync()
-        {
-            // No blocking :)
-            await Task.Delay(2000);
-
-            return "Hello World";
         }
 
         private static int BlockingTask()
@@ -68,5 +62,33 @@ namespace mvc
             await Task.Delay(1000);
             return 5;
         }
+
+        [HttpGet("/hello-async")]
+        public async Task<string> HelloAsync()
+        {
+            // No blocking :)
+            await Task.Delay(2000);
+
+            return "Hello World";
+        }
+
+        [HttpGet("/hello-async-precompleted")]
+        public async Task<string> HelloAsyncPrecompleted()
+        {
+            Task<int> task = MethodAsync();
+
+            if (!task.IsCompletedSuccessfully)
+            {
+                // Await completes the Task without blocking
+                await task;
+            }
+            
+            // The task is completed at this point so .Result doesn't trigger blocking
+            var result = task.Result;
+
+            return $"Hello World {result}";
+        }
     }
+
+#pragma warning restore IDE0007 
 }
