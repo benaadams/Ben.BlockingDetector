@@ -2,11 +2,25 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Threading.Controllers
+namespace mvc
 {
     public class HomeController : Controller
     {
         private static object _lock;
+
+        [HttpGet("/")]
+        public Task Slower()
+        {
+            return DoSomethingAsync();
+        }
+
+        private async Task DoSomethingAsync()
+        {
+            await Task.Delay(1000);
+
+            // Detected blocking
+            Task.Run (() => { Thread.Sleep(1000); }).Wait();
+        }
 
         [HttpGet("/hello")]
         public string Hello()
