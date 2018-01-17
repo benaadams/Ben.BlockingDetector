@@ -1,4 +1,4 @@
-﻿using System.Threading;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -11,20 +11,25 @@ namespace Ben.Diagnostics
     {
         private readonly ILoggerFactory _loggerFactory;
         private readonly RequestDelegate _next;
+
+        private readonly BlockingMonitor _monitor;
         private readonly DetectBlockingSynchronizationContext _detectBlockingSyncCtx;
+        private readonly TaskBlockingListener _listener;
 
         public BlockingDetectionMiddleware(RequestDelegate next, ILoggerFactory loggerFactory, IApplicationLifetime lifetime)
         {
             _next = next;
             _loggerFactory = loggerFactory;
             // Detect blocking
-            _detectBlockingSyncCtx = new DetectBlockingSynchronizationContext(loggerFactory);
+            _monitor = new BlockingMonitor(loggerFactory);
+            _detectBlockingSyncCtx = new DetectBlockingSynchronizationContext(_monitor);
+            _listener = new TaskBlockingListener(_monitor);
         }
 
         public async Task Invoke(HttpContext httpContext)
         {
             var syncCtx = SynchronizationContext.Current;
-            SynchronizationContext.SetSynchronizationContext(syncCtx == null ? _detectBlockingSyncCtx : new DetectBlockingSynchronizationContext(_loggerFactory, syncCtx));
+            SynchronizationContext.SetSynchronizationContext(syncCtx == null ? _detectBlockingSyncCtx : new DetectBlockingSynchronizationContext(_monitor, syncCtx));
             
             try
             {
