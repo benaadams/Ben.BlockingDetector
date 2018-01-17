@@ -43,9 +43,9 @@ namespace mvc
         [HttpGet("/hello-async-over-sync")]
         public async Task<string> HelloAsyncOverSync()
         {
-            await Task.Run(() => BlockingTask());
+            var result = await Task.Run(() => BlockingTask());
 
-            return "Hello World";
+            return $"Hello World {result}";
         }
 
         [HttpGet("/hello-async")]
@@ -57,10 +57,16 @@ namespace mvc
             return "Hello World";
         }
 
-        private static void BlockingTask()
+        private static int BlockingTask()
         {
             // Detected blocking
-            Task.Delay(2000).Wait();
+            return MethodAsync().Result;
+        }
+
+        private static async Task<int> MethodAsync()
+        {
+            await Task.Delay(1000);
+            return 5;
         }
     }
 }
