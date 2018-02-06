@@ -23,22 +23,34 @@ namespace Ben.Diagnostics
 
         public override int Wait(IntPtr[] waitHandles, bool waitAll, int millisecondsTimeout)
         {
-            _monitor.BlockingStart(DectectionSource.SynchronizationContext);
-
-            try
+            if (millisecondsTimeout == 0)
             {
-                if (_syncCtx != null)
+                return WaitInternal(waitHandles, waitAll, millisecondsTimeout);
+            }
+            else
+            {
+                _monitor.BlockingStart(DectectionSource.SynchronizationContext);
+
+                try
                 {
-                    return _syncCtx.Wait(waitHandles, waitAll, millisecondsTimeout);
+                    return WaitInternal(waitHandles, waitAll, millisecondsTimeout);
                 }
-                else
+                finally
                 {
-                    return base.Wait(waitHandles, waitAll, millisecondsTimeout);
+                    _monitor.BlockingEnd();
                 }
             }
-            finally
+        }
+
+        private int WaitInternal(IntPtr[] waitHandles, bool waitAll, int millisecondsTimeout)
+        {
+            if (_syncCtx != null)
             {
-                _monitor.BlockingEnd();
+                return _syncCtx.Wait(waitHandles, waitAll, millisecondsTimeout);
+            }
+            else
+            {
+                return base.Wait(waitHandles, waitAll, millisecondsTimeout);
             }
         }
     }
