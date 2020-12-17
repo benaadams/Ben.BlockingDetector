@@ -16,7 +16,7 @@ namespace Ben.Diagnostics
         private readonly DetectBlockingSynchronizationContext _detectBlockingSyncCtx;
         private readonly TaskBlockingListener _listener;
 
-        public BlockingDetectionMiddleware(RequestDelegate next, ILoggerFactory loggerFactory, IApplicationLifetime lifetime)
+        public BlockingDetectionMiddleware(RequestDelegate next, ILoggerFactory loggerFactory)
         {
             _next = next;
             _loggerFactory = loggerFactory;
