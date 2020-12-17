@@ -6,7 +6,7 @@ Blocking Detection for ASP.NET Core
 
 ## Detect Blocking Calls in ASP.NET Core Applications
 
-Blocking calls can lead to ThreadPool starvation. Ouputs a warning to the log when blocking calls are made on the ThreadPool.
+Blocking calls can lead to ThreadPool starvation. Outputs a warning to the log when blocking calls are made on the ThreadPool.
 
 ### Usage
 
@@ -20,7 +20,7 @@ app.UseBlockingDetection();
 
 Doesn't detect everything... so its not a panacea; you should actively try to avoid using blocking calls.
 
-1. For `async` methods with occurances of **`.ConfigureAwait(false)`**, detection won't alert for blocking `Monitor` calls after occurances in the case where the returned `Task` wasn't already completed
+1. For `async` methods with occurances of **`.ConfigureAwait(false)`**, detection won't alert for blocking `Monitor` calls after occurences in the case where the returned `Task` wasn't already completed
 2. Won't alert for blocking calls that don't block, like on precompleted `Task`s (e.g. a single small `Body.Write`)
 3. Won't alert for blocking that happens in syscalls (e.g. `File.Read(...)`, `Thread.Sleep`)
 
