@@ -7,8 +7,6 @@ namespace mvc
 {
     public class HomeController : Controller
     {
-        private static object _lock;
-
         [HttpGet("/")]
         public Task Slower()
         {

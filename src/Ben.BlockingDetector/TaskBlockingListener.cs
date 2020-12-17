@@ -51,6 +51,5 @@ namespace Ben.Diagnostics
                 _monitor.BlockingEnd();
             }
         }
-
     }
 }
