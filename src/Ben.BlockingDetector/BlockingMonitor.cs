@@ -19,8 +19,11 @@ namespace Ben.Diagnostics
 
         /// <summary>
         /// Event that is dispatched when a blocking method is detected
+        /// 
+        /// StackTrace - The Stack Trace of the current callstack including blocking monitor itself
+        /// int - The number of stack frames to skip over in order to exclude blocking monitor
         /// </summary>
-        public static event Action<StackTrace> BlockingMethodCalled;
+        public static event Action<StackTrace, int> BlockingMethodCalled;
 
         public BlockingMonitor(ILoggerFactory loggerFactory)
         {
@@ -41,14 +44,16 @@ namespace Ben.Diagnostics
             {
                 if (t_recursionCount == 1)
                 {
-                    var stackTrace = new StackTrace(dectectionSource == DectectionSource.SynchronizationContext ? 3 : 6);
+                    var framesToSkip = dectectionSource == DectectionSource.SynchronizationContext ? 3 : 6;
 
                     if (BlockingMonitor.LogBlockingMethodCalls)
                     {
-                        _logger.BlockingMethodCalled(stackTrace);
+                        _logger.BlockingMethodCalled(new StackTrace(framesToSkip, true));
                     }
-                    
-                    BlockingMonitor.BlockingMethodCalled?.Invoke(stackTrace);
+
+                    // We omit the frame creation here becuase including a skip and file details doesn't return
+                    // file numbers in .NET core 3.1
+                    BlockingMonitor.BlockingMethodCalled?.Invoke(new StackTrace(true), framesToSkip);
                 }
             }
             catch
